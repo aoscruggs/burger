@@ -1,19 +1,19 @@
 var mysql = require("mysql");
 //mysql://sy851ofcvs35hfxu:un1er40cvqkjq7un@h40lg7qyub2umdvb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/p2ttuss7mb7t7nx5
-var connection = mysql.createConnection({
-  host: "h40lg7qyub2umdvb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306",
-  user: "sy851ofcvs35hfxu",
-  password: "un1er40cvqkjq7un",
-  database: "p2ttuss7mb7t7nx5"
-});
+var connection;
 
-connection.connect(function(err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
+if (process.env.JAWSDB_URL){
+	connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+	connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'root',
+		password: "",
+		database: burgers_db
+	});
+};
 
-  console.log("connected as id " + connection.threadId);
 
-});
+
+connection.connect(); 
 module.exports = connection;
